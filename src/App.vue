@@ -1,25 +1,25 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
   <header>
     <nav>
       <RouterLink to="/">
-Home -
-</RouterLink>
+       Home -
+      </RouterLink>
       <RouterLink to="/login">
-Войти в систему -
-</RouterLink>
+       Войти в систему -
+      </RouterLink>
       <RouterLink to="/registration">
-Создать аккаунт -
-</RouterLink>
+       Создать аккаунт -
+      </RouterLink>
       <RouterLink to="/listAims">
-Список задачь -
-</RouterLink>
+       Список задачь -
+      </RouterLink>
       <RouterLink to="/createaim">
-Создать цель -
-</RouterLink>
+       Создать цель -
+      </RouterLink>
     </nav>
   </header>
 

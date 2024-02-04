@@ -12,6 +12,7 @@ module.exports = {
     ecmaVersion: 'latest'
   },
   rules: {
+    "require-await": ['error'],
     'vue/component-definition-name-casing': ['error', 'kebab-case'],
     'vue/singleline-html-element-content-newline': ['error'],
     'vue/multiline-html-element-content-newline': ['error'],

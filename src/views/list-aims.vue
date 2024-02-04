@@ -52,7 +52,7 @@ async function fetchData(url) {
   }
 }
 
-async function aimsTimeSorting(aimsForTheDay) {
+function aimsTimeSorting(aimsForTheDay) {
   aimsForTheDay.forEach((aim) => {
     aims[aim.timeOfDay].push(aim)
   })
