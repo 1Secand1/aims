@@ -4,18 +4,19 @@
     @click="selectDayOfTheWeek"
   >
     <li
-      v-for="(weekDayText, weekDay) in weekdays"
+      v-for="(weekDayText, weekDay) in daysOfTheWeek"
       :class="{ active: activeWeekday.includes(weekDay) }"
       :data-weekday="weekDay"
       :key="weekDay"
     >
-      {{ weekDayText }}
+      {{ weekDayText.textValue }}
     </li>
   </ul>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import {daysOfTheWeek} from "../consts/weekDay.js"
 
 const emit = defineEmits(['getDay'])
 const props = defineProps({
@@ -28,15 +29,6 @@ const props = defineProps({
 })
 
 const activeWeekday = ref(props.selected)
-const weekdays = {
-  monday: 'Пн',
-  tuesday: 'Вт',
-  wednesday: 'Ср',
-  thursday: 'Чт',
-  friday: 'Пт',
-  saturday: 'Сб',
-  sunday: 'Вс'
-}
 
 function radio(weekDay) {
   activeWeekday.value = weekDay

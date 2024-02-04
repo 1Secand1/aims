@@ -27,6 +27,8 @@
 import { onMounted, reactive } from 'vue'
 import timeSection from '@/components/list-aims-time-section.vue'
 import weekdaySelection from '@/components/weekday-selection.vue'
+import {daysOfTheWeek} from "../consts/weekDay.js"
+
 
 const aims = reactive({
   morning: [],
@@ -56,19 +58,6 @@ async function aimsTimeSorting(aimsForTheDay) {
   })
 }
 
-function getDayNumber(dayName) {
-  const daysOfWeek = {
-    monday: 1,
-    tuesday: 2,
-    wednesday: 3,
-    thursday: 4,
-    friday: 5,
-    saturday: 6,
-    sunday: 7
-  }
-  return daysOfWeek[dayName]
-}
-
 async function getJsonAimsList(aimsId = 1) {
   const url = `https://apigenerator.dronahq.com/api/HaSVeb1J/usersDailyAimsList/${aimsId}`
   const jsonAimsList = await fetchData(url)
@@ -76,8 +65,8 @@ async function getJsonAimsList(aimsId = 1) {
 }
 
 async function displayTheDaysAims(weekDay) {
-  const weekdayNumber = getDayNumber(weekDay)
-  const jsonAimsList = await getJsonAimsList(weekdayNumber)
+  const weekdayNumber = daysOfTheWeek[weekDay].weekdayNumber;
+  const jsonAimsList = await getJsonAimsList(weekdayNumber);
 
   for (const key in aims) {
     aims[key] = []
