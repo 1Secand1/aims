@@ -4,15 +4,13 @@
       <h2>Создать аккаунт</h2>
       <br />
       <input 
-        v-model="regData.login" 
-        type="text" 
+        v-model="regData.login"
+        type="text"
         placeholder="Логин" />
 
-      <input 
-        v-model="regData.password"
-        type="text" 
+      <input v-model="regData.password"
+        type="text"
         placeholder="Пароль" />
-
       <button @click="userRegistration(regData)">
         Войти
       </button>
@@ -27,28 +25,25 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { userCreation } from"../servives/servises.js"
+
 
 const regData = reactive({
   login: '',
   password: ''
 })
 
-function userRegistration(data) {
-  fetch('https:/api/auth/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify(data)
-  })
-    .then(() => {
-      alert('Пользователь создан')
-      console.log('Пользователь создан')
-    })
-    .catch(() => {
-      alert('Ошибка в создании пользователя')
-      console.log('Ошибка в создании пользователя')
-    })
+async function userRegistration(userData) {
+  try {
+   const response = await userCreation(userData);
+
+    alert('Пользователь создан')
+    console.log('response')
+    
+  } catch (error) {
+    alert('Ошибка в создании пользователя')
+    console.log('Ошибка в создании пользователя')
+  }
 }
 </script>
 

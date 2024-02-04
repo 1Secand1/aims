@@ -24,6 +24,8 @@
 <script setup>
 import { reactive } from 'vue'
 import router from '@/router'
+import { getJwtToken } from"../servives/servises.js"
+
 
 const logData = reactive({
   login: '',
@@ -32,14 +34,7 @@ const logData = reactive({
 
 async function userAuthorization(data) {
   try {
-    // API покачто нету
-    const jwtToken = await fetch('', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify(data)
-    })
+    const jwtToken = getJwtToken(data)
 
     localStorage.setItem('jwtToken', '1234')
     router.push('/listAims')

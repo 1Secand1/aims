@@ -27,7 +27,8 @@
 import { onMounted, reactive } from 'vue'
 import timeSection from '@/components/list-aims-time-section.vue'
 import weekdaySelection from '@/components/weekday-selection.vue'
-import {daysOfTheWeek} from "../consts/weekDay.js"
+import { daysOfTheWeek } from "../consts/weekDay.js"
+import { fetchData } from "../servives/servises.js"
 
 
 const aims = reactive({
@@ -36,21 +37,6 @@ const aims = reactive({
   evening: [],
   duringTheDay: []
 })
-
-async function fetchData(url) {
-  try {
-    if (!url) throw new Error('url undefined')
-
-    const response = await fetch(url)
-    if (!response.ok) throw new Error('Network response was not ok')
-
-    const data = response.json()
-    return data
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    return null
-  }
-}
 
 async function getJsonAimsList(aimsId = 1) {
   const url = `https://apigenerator.dronahq.com/api/HaSVeb1J/usersDailyAimsList/${aimsId}`
