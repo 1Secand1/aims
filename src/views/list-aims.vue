@@ -52,12 +52,6 @@ async function fetchData(url) {
   }
 }
 
-function aimsTimeSorting(aimsForTheDay) {
-  aimsForTheDay.forEach((aim) => {
-    aims[aim.timeOfDay].push(aim)
-  })
-}
-
 async function getJsonAimsList(aimsId = 1) {
   const url = `https://apigenerator.dronahq.com/api/HaSVeb1J/usersDailyAimsList/${aimsId}`
   const jsonAimsList = await fetchData(url)
@@ -72,7 +66,9 @@ async function displayTheDaysAims(weekDay) {
     aims[key] = []
   }
 
-  aimsTimeSorting(jsonAimsList.aims)
+  jsonAimsList.aims.forEach((aim) => {
+    aims[aim.timeOfDay].push(aim)
+  })
 }
 
 onMounted(() => {

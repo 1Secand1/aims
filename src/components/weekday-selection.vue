@@ -45,12 +45,11 @@ function selectDayOfTheWeek({ target }) {
   const { tagName, dataset } = target
 
   if (tagName !== 'LI') return
-  const weekDay = dataset.weekday
 
   if (props.type === 'radio') {
-    radio(weekDay)
+    radio(dataset.weekday)
   } else {
-    select(weekDay)
+    select(dataset.weekday)
   }
 
   emit('getDay', activeWeekday.value)
