@@ -1,6 +1,6 @@
 <template>
   <ul 
-    class="weekday-selection"
+    class="weekday-selection-list"
     @click="selectDayOfTheWeek"
   >
     <li
@@ -8,6 +8,7 @@
       :class="{ active: activeWeekday.includes(weekDay) }"
       :data-weekday="weekDay"
       :key="weekDay"
+      class="weekday-selection-list__item"
     >
       {{ weekDayText.textValue }}
     </li>
@@ -61,12 +62,16 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.weekday-selection {
+.weekday-selection-list {
   display: flex;
 
   column-gap: 15px;
 
   list-style: none;
+}
+
+.weekday-selection-list__item{
+  cursor: pointer;
 }
 
 .active {

@@ -15,7 +15,7 @@ import { RouterLink, RouterView } from 'vue-router'
        Создать аккаунт -
       </RouterLink>
       <RouterLink to="/listAims">
-       Список задачь -
+       Список задач -
       </RouterLink>
       <RouterLink to="/createaim">
        Создать цель -
