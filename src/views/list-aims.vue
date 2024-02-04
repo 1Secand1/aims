@@ -1,0 +1,93 @@
+<template>
+  <weekday-selection 
+    type="radio"
+    selected="monday"
+    @get-day="displayTheDaysAims" 
+  />
+
+  <time-section 
+    title="В течении дня"
+    :aims="aims.duringTheDay" 
+  />
+  <time-section 
+    title="Утром"
+    :aims="aims.morning"
+  />
+  <time-section
+    title="Днём"
+    :aims="aims.afternoon"
+  />
+  <time-section
+    title="Вечером"
+    :aims="aims.evening"
+  />
+</template>
+
+<script setup>
+import { onMounted, reactive } from 'vue'
+import timeSection from '@/components/list-aims-time-section.vue'
+import weekdaySelection from '@/components/weekday-selection.vue'
+
+const aims = reactive({
+  morning: [],
+  afternoon: [],
+  evening: [],
+  duringTheDay: []
+})
+
+async function fetchData(url) {
+  try {
+    if (!url) throw new Error('url undefined')
+
+    const response = await fetch(url)
+    if (!response.ok) throw new Error('Network response was not ok')
+
+    const data = response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    return null
+  }
+}
+
+async function aimsTimeSorting(aimsForTheDay) {
+  aimsForTheDay.forEach((aim) => {
+    aims[aim.timeOfDay].push(aim)
+  })
+}
+
+function getDayNumber(dayName) {
+  const daysOfWeek = {
+    monday: 1,
+    tuesday: 2,
+    wednesday: 3,
+    thursday: 4,
+    friday: 5,
+    saturday: 6,
+    sunday: 7
+  }
+  return daysOfWeek[dayName]
+}
+
+async function getJsonAimsList(aimsId = 1) {
+  const url = `https://apigenerator.dronahq.com/api/HaSVeb1J/usersDailyAimsList/${aimsId}`
+  const jsonAimsList = await fetchData(url)
+  return jsonAimsList
+}
+
+async function displayTheDaysAims(weekDay) {
+  const weekdayNumber = getDayNumber(weekDay)
+  const jsonAimsList = await getJsonAimsList(weekdayNumber)
+
+  for (const key in aims) {
+    aims[key] = []
+  }
+
+  aimsTimeSorting(jsonAimsList.aims)
+}
+
+onMounted(() => {
+})
+</script>
+
+<style></style>
