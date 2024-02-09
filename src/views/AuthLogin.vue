@@ -1,14 +1,15 @@
 <template>
   <div class="wrapper">
-    <div class="form">
+    <form class="form">
       <h2>Вход в приложение</h2>
       <br />
       <input 
         v-model="logData.login"
         type="text"
         placeholder="Логин" />
-      <input v-model="logData.password"
-        type="text"
+      <input
+        v-model="logData.password"
+        type="password"
         placeholder="Пароль" />
       <button @click="userAuthorization(regData)">
         Войти
@@ -17,7 +18,7 @@
         Нет акаунта -
         <RouterLink to="/registration">cоздать</RouterLink>
       </small>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -44,8 +45,9 @@ async function userAuthorization(data) {
 }
 </script>
 
-<style>
+<style scoped>
 .wrapper {
+  width: 100%;
   height: 97dvh;
   display: grid;
   place-items: center;

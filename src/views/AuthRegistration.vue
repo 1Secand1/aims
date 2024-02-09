@@ -47,8 +47,9 @@ async function userRegistration(userData) {
 }
 </script>
 
-<style>
+<style scoped>
 .wrapper {
+  width: 100%;
   height: 97dvh;
   display: grid;
   place-items: center;

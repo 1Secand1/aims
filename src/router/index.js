@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import HomeView from "../views/HomeView.vue"; 
 
 const routes = [
   {
@@ -10,12 +10,12 @@ const routes = [
   {
     path: "/createaim",
     name: "createaim",
-    component: () => import("../views/create-aims.vue"),
+    component: () => import("../views/CreateAims.vue"),
   },
   {
     path: "/listAims",
     name: "listAims",
-    component: () => import("../views/list-aims.vue"),
+    component: () => import("../views/ListAims.vue"),
   },
   {
     path: "/registration",

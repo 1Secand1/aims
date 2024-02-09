@@ -23,7 +23,17 @@ import { RouterLink, RouterView } from 'vue-router'
     </nav>
   </header>
 
-  <RouterView />
+  <div class="wrapper">
+    <RouterView />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+@import './assets/main.css';
+
+.wrapper {
+  display: grid;
+  max-width:900px;
+  margin-inline: auto;
+}
+</style>

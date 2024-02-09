@@ -1,32 +1,37 @@
-<template>
-  <weekday-selection 
-    type="radio"
-    selected="monday"
-    @get-day="displayTheDaysAims" 
-  />
+<template >
+    <weekday-selection 
+      type="radio"
+      selected="monday"
+      @get-day="displayTheDaysAims" 
+    />
 
-  <time-section 
-    title="В течении дня"
-    :aims="aims.duringTheDay" 
-  />
-  <time-section 
-    title="Утром"
-    :aims="aims.morning"
-  />
-  <time-section
-    title="Днём"
-    :aims="aims.afternoon"
-  />
-  <time-section
-    title="Вечером"
-    :aims="aims.evening"
-  />
+    <ul class="time-section-list">
+       <time-section 
+        title="В течении дня"
+        :aims="aims.duringTheDay" 
+      />
+
+      <time-section 
+        title="Утром"
+        :aims="aims.morning"
+      />
+
+      <time-section
+        title="Днём"
+        :aims="aims.afternoon"
+      />
+
+      <time-section
+        title="Вечером"
+        :aims="aims.evening"
+      />
+    </ul>
 </template>
 
 <script setup>
 import { onMounted, reactive } from 'vue'
-import timeSection from '@/components/list-aims-time-section.vue'
-import weekdaySelection from '@/components/weekday-selection.vue'
+import timeSection from '../components/ListAimsTimeSection.vue'
+import weekdaySelection from '@/components/WeekdaySelection.vue'
 import { daysOfTheWeek } from "../consts/weekDay.js"
 import { fetchData } from "../servives/servises.js"
 
@@ -61,4 +66,12 @@ onMounted(() => {
 })
 </script>
 
-<style></style>
+<style scoped>
+
+.time-section-list{
+  display: grid;
+  
+  gap: 20px;
+  margin-top: 20px;
+}
+</style>

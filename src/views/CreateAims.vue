@@ -89,7 +89,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import weekdaySelection from '@/components/weekday-selection.vue'
+import weekdaySelection from '@/components/WeekdaySelection.vue'
 import {daysOfTheWeek} from "../consts/weekDay.js"
 
 const defaultDays = Object.keys(daysOfTheWeek)

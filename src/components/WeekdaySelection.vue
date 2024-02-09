@@ -4,11 +4,11 @@
     @click="selectDayOfTheWeek"
   >
     <li
+      class="weekday-selection-list__item"
       v-for="(weekDayText, weekDay) in daysOfTheWeek"
       :class="{ active: activeWeekday.includes(weekDay) }"
       :data-weekday="weekDay"
       :key="weekDay"
-      class="weekday-selection-list__item"
     >
       {{ weekDayText.textValue }}
     </li>
@@ -63,17 +63,25 @@ onMounted(() => {
 <style scoped>
 .weekday-selection-list {
   display: flex;
+  flex-wrap: wrap;
 
   column-gap: 15px;
+  margin-top: 20px;
 
   list-style: none;
 }
 
 .weekday-selection-list__item{
+  text-align: center;
   cursor: pointer;
+  flex: 1;
+  background: #253334;
+  color: white;
+  padding: 5px;
+  border-radius: 6px;
 }
 
 .active {
-  border: solid 1px;
+  background: #623DF6;
 }
 </style>
