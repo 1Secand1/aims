@@ -1,11 +1,14 @@
 
 <template>
-  <ul class="aims-list" v-if="aims.length">
+  <ul 
+    class="card-list" 
+    v-if="cards.length"
+  >
     <h2>{{ title }}</h2>
 
     <li
-      class="aim-card"
-      v-for="{ id, title, description } in aims"
+      class="card"
+      v-for="{ id, title, description } in cards"
       :key="id"
     >
       <h3>{{ title }}</h3>
@@ -25,7 +28,7 @@
 
       <button 
         class="button"
-        @click="1"
+        @click="deleteCardFromSection(id)"
       >
         Удолить
       </button>
@@ -35,16 +38,21 @@
 </template>
 
 <script setup>
-  defineProps(['title', 'aims'])
+ defineProps(['title', 'cards'])
+ const emit = defineEmits(['cardRemove'])
+
+ function deleteCardFromSection(id) {
+  emit("cardRemove",id)
+ }
 </script>
 
 <style scoped>
-.aims-list {
+.card-list {
   display: grid;
   gap: 20px;
 }
 
-.aim-card {
+.card {
   background: #253334;
   border-radius: 6px;
 

@@ -2,7 +2,6 @@
   <div class="wrapper">
     <div class="form">
       <h2>Создать аккаунт</h2>
-      <br />
       <input 
         v-model="regData.login"
         type="text"

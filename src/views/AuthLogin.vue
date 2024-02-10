@@ -2,7 +2,6 @@
   <div class="wrapper">
     <form class="form">
       <h2>Вход в приложение</h2>
-      <br />
       <input 
         v-model="logData.login"
         type="text"

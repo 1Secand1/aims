@@ -7,12 +7,14 @@
     <input 
       v-model="newAims.title"
       type="text"
-      placeholder="Название" />
+      placeholder="Название"
+    />
 
     <input 
       v-model="newAims.description"
       type="text"
-      placeholder="Описание" />
+      placeholder="Описание" 
+    />
 
     <weekday-selection
       type="select"
@@ -34,7 +36,6 @@
       </li>
       <li>
         <label for="morning"> Утром </label>
-
         <input
           v-model="newAims.timeOfDay"
           id="morning"
@@ -79,8 +80,6 @@
         Миша
       </option>
     </select>
-    <br />
-
     <button @click="createAim">
       Создать
     </button>
@@ -90,7 +89,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import weekdaySelection from '@/components/WeekdaySelection.vue'
-import {daysOfTheWeek} from "../consts/weekDay.js"
+import { daysOfTheWeek } from '../consts/weekDay.js'
 
 const defaultDays = Object.keys(daysOfTheWeek)
 const newAims = reactive({
