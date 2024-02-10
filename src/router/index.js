@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue"; 
+import HomeView from "../views/HomeView.vue";
 
 const routes = [
   {
@@ -40,7 +40,11 @@ router.beforeEach((to) => {
   const thisUserAuthorized = !!localStorage.getItem("jwtToken");
   const thisRoutePublic = publiclyRoutes.includes(to.name);
 
-  return thisUserAuthorized || thisRoutePublic;
+  if (thisUserAuthorized || thisRoutePublic) {
+    return true;
+  } else {
+    router.push("login");
+  }
 });
 
 export default router;
