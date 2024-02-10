@@ -25,7 +25,7 @@
 
       <button 
         class="button"
-        @click=""
+        @click="1"
       >
         Удолить
       </button>
