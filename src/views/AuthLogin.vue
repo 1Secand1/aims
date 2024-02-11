@@ -24,7 +24,7 @@
 <script setup>
 import { reactive } from 'vue'
 import router from '@/router'
-import { getJwtToken } from"../servives/servises.js"
+import { getJwtToken } from"../servives/autofitration.js"
 
 
 const logData = reactive({

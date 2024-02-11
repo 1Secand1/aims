@@ -6,10 +6,11 @@
     <li
       class="weekday-selection-list__item"
       v-for="(weekDayText, weekDay) in daysOfTheWeek"
-      :class="{ active: activeWeekday.includes(weekDay) }"
+      :class="{ active: selectedWeekdays.includes(weekDay) }"
       :data-weekday="weekDay"
       :key="weekDay"
     >
+    <!-- TODO изменить имя data-weekday -->
       {{ weekDayText.textValue }}
     </li>
   </ul>
@@ -23,22 +24,23 @@ const emit = defineEmits(['getDay'])
 const props = defineProps({
   type: {
     validator(value) {
+      // TODO вынисти radio в const
       return ['radio', 'select'].includes(value)
     }
   },
   selected: [String, Array]
 })
 
-const activeWeekday = ref(props.selected)
+const selectedWeekdays = ref(props.selected)
 
 function radio(weekDay) {
-  activeWeekday.value = weekDay
+  selectedWeekdays.value = weekDay
 }
 function select(weekDay) {
-  if (!activeWeekday.value.includes(weekDay)) {
-    activeWeekday.value.push(weekDay)
+  if (!selectedWeekdays.value.includes(weekDay)) {
+    selectedWeekdays.value.push(weekDay)
   } else {
-    activeWeekday.value = activeWeekday.value.filter((item) => item !== weekDay)
+    selectedWeekdays.value = selectedWeekdays.value.filter((item) => item !== weekDay)
   }
 }
 function selectDayOfTheWeek({ target }) {
@@ -46,13 +48,14 @@ function selectDayOfTheWeek({ target }) {
 
   if (tagName !== 'LI') return
 
+  // TODO вынисти radio в const
   if (props.type === 'radio') {
     radio(dataset.weekday)
   } else {
     select(dataset.weekday)
   }
 
-  emit('getDay', activeWeekday.value)
+  emit('getDay', selectedWeekdays.value)
 }
 
 onMounted(() => {

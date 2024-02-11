@@ -11,7 +11,7 @@
         type="text"
         placeholder="Пароль" />
       <button @click="userRegistration(regData)">
-        Войти
+        зарегистрироваться
       </button>
 
       <small>
@@ -24,7 +24,7 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { userCreation } from"../servives/servises.js"
+import { userCreation } from"../servives/autofitration.js"
 
 
 const regData = reactive({

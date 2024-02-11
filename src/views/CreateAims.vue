@@ -1,3 +1,4 @@
+// TODO вынисти radio в const
 <template>
   <form 
     @submit.prevent=""
@@ -28,6 +29,7 @@
         <input
           v-model="newAims.timeOfDay"
           id="duringTheDay"
+
           type="radio"
           name="timeOfDay"
           value="duringTheDay"
@@ -100,9 +102,14 @@ const newAims = reactive({
   targetDates: ref([])
 })
 
+function scheduleTaskOnDays(weekDay) {
+  
+}
+
 function setTargetDates(weekDays) {
   newAims.targetDates = weekDays
 }
+
 function createAim() {
   console.log({ ...newAims })
 }
