@@ -25,9 +25,12 @@
       @get-Day="setTargetDates"
     />
 
-    <ul class="time-of-day-selection">
+    <ul class="time-of-day-selection-list">
       <li class="time-of-day-selection__item">
-        <label for="duringTheDay">В любое время</label>
+        <label 
+          class="time-of-day-selection__item-title"
+          for="duringTheDay">В любое время
+        </label>
         <input
           v-model="newAims.timeOfDay"
           id="duringTheDay"
@@ -38,7 +41,12 @@
         />
       </li>
       <li class="time-of-day-selection__item">
-        <label for="morning"> Утром </label>
+        <label 
+          class="time-of-day-selection__item-title"
+          for="morning"
+        > 
+          Утром 
+        </label>
         <input
           v-model="newAims.timeOfDay"
           id="morning"
@@ -48,7 +56,12 @@
         />
       </li>
       <li class="time-of-day-selection__item">
-        <label for="afternoon"> Днём </label>
+        <label 
+          class="time-of-day-selection__item-title"
+          for="afternoon"
+        > 
+          Днём 
+        </label>
         <input
           v-model="newAims.timeOfDay"
           id="afternoon"
@@ -58,7 +71,12 @@
         />
       </li>
       <li class="time-of-day-selection__item">
-        <label for="evening"> Вечером </label>
+        <label 
+          class="time-of-day-selection__item-title"
+          for="evening"
+        > 
+          Вечером 
+        </label>
         <input
           v-model="newAims.timeOfDay"
           id="evening"
@@ -149,7 +167,7 @@ button:hover{
   margin-top: 10px;
 }
 
-.time-of-day-selection{
+.time-of-day-selection-list{
   display: flex;
   flex-wrap: wrap;
 
@@ -163,6 +181,10 @@ button:hover{
   display: flex;
   flex: 0 1 auto;
   align-items: center;
+}
+
+.time-of-day-selection__item-title{
+  cursor: pointer;
 }
 
 .partner-selection{
