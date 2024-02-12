@@ -15,7 +15,12 @@
       </button>
       <small>
         Нет акаунта -
-        <RouterLink to="/registration">cоздать</RouterLink>
+        <RouterLink 
+          class="router-link" 
+          to="/registration"
+        >
+          cоздать
+        </RouterLink>
       </small>
     </form>
   </div>
@@ -45,6 +50,19 @@ async function userAuthorization(data) {
 </script>
 
 <style scoped>
+input,button,select{
+  border: solid 1px gray;
+  padding: 5px 10px;
+  border-radius:5px ;
+}
+
+button{
+  cursor: pointer;
+}
+button:hover{
+  opacity: 0.8;
+}
+
 .wrapper {
   width: 100%;
   height: 97dvh;
@@ -56,5 +74,16 @@ async function userAuthorization(data) {
   display: grid;
   max-width: 300px;
   width: 100%;
+
+  background: #8569f6;
+  padding: 10px 20px;
+  gap: 10px;
+
+  color: white;
+  border-radius: 5px;
+}
+
+.router-link{
+  color: #fefefe;
 }
 </style>

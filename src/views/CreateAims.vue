@@ -146,7 +146,7 @@ function createAim() {
 }
 </script>
 
-<style>
+<style scoped>
 input,button,select{
   border: solid 1px gray;
   padding: 5px 10px;
