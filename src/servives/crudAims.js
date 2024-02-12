@@ -9,8 +9,21 @@ async function getAimsList(weekDay) {
   return jsonAimsList;
 }
 
-async function addAimsToWeekDay(weekDay) {
-  const currentAims = getAimsList();
+async function setDailyAims(weekDay, aimArray = {}) {
+  const currentDay = await getAimsList(weekDay);
+  const currentAims = currentDay.aims;
+
+  let newAims = [
+    ...currentAims,
+    {
+      id: currentAims.length + 1,
+      ...aimArray
+    }
+  ];
+
+  fetchData("https://apigenerator.dronahq.com/api/ji-qgVLr/aims/7", "PATCH", {
+    aims: newAims
+  });
 }
 
-export { getAimsList, addAimsToWeekDay };
+export { getAimsList, setDailyAims };

@@ -5,17 +5,19 @@
     action="">
     <h2>Сооздать цель</h2>
 
-    <input 
-      v-model="newAims.title"
-      type="text"
-      placeholder="Название"
-    />
+    <div class="input-box">
+      <input 
+        v-model="newAims.title"
+        type="text"
+        placeholder="Название"
+      />
 
-    <input 
-      v-model="newAims.description"
-      type="text"
-      placeholder="Описание" 
-    />
+      <input 
+        v-model="newAims.description"
+        type="text"
+        placeholder="Описание" 
+      />
+    </div>
 
     <weekday-selection
       type="select"
@@ -23,20 +25,19 @@
       @get-Day="setTargetDates"
     />
 
-    <ul>
-      <li>
+    <ul class="time-of-day-selection">
+      <li class="time-of-day-selection__item">
         <label for="duringTheDay">В любое время</label>
         <input
           v-model="newAims.timeOfDay"
           id="duringTheDay"
-
           type="radio"
           name="timeOfDay"
           value="duringTheDay"
           checked
         />
       </li>
-      <li>
+      <li class="time-of-day-selection__item">
         <label for="morning"> Утром </label>
         <input
           v-model="newAims.timeOfDay"
@@ -46,7 +47,7 @@
           value="morning"
         />
       </li>
-      <li>
+      <li class="time-of-day-selection__item">
         <label for="afternoon"> Днём </label>
         <input
           v-model="newAims.timeOfDay"
@@ -56,7 +57,7 @@
           value="afternoon"
         />
       </li>
-      <li>
+      <li class="time-of-day-selection__item">
         <label for="evening"> Вечером </label>
         <input
           v-model="newAims.timeOfDay"
@@ -68,7 +69,10 @@
       </li>
     </ul>
 
-    <select name="choice">
+    <select 
+      name="choice"
+      class="partner-selection"
+    >
       <option value="0001">
         Вася
       </option>
@@ -82,7 +86,11 @@
         Миша
       </option>
     </select>
-    <button @click="createAim">
+
+    <button 
+      class="create-Aims-button"  
+      @click="createAim"
+    >
       Создать
     </button>
   </form>
@@ -92,6 +100,7 @@
 import { reactive, ref } from 'vue'
 import weekdaySelection from '@/components/WeekdaySelection.vue'
 import { daysOfTheWeek } from '../consts/weekDay.js'
+import { setDailyAims } from "../servives/crudAims.js";
 
 const defaultDays = Object.keys(daysOfTheWeek)
 const newAims = reactive({
@@ -103,7 +112,7 @@ const newAims = reactive({
 })
 
 function scheduleTaskOnDays(weekDay) {
-  
+
 }
 
 function setTargetDates(weekDays) {
@@ -111,8 +120,60 @@ function setTargetDates(weekDays) {
 }
 
 function createAim() {
-  console.log({ ...newAims })
+
+  const{targetDates, ...dataAims} = newAims
+  targetDates.forEach(weekDay => {
+  setDailyAims(weekDay,dataAims)
+  });
 }
 </script>
 
-<style></style>
+<style>
+input,button,select{
+  border: solid 1px gray;
+  padding: 5px 10px;
+  border-radius:5px ;
+}
+
+button,select{
+  cursor: pointer;
+}
+
+button:hover{
+  opacity: 0.8;
+}
+
+.input-box{
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.time-of-day-selection{
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 15px;
+  margin-top: 10px;
+
+  list-style-type: none;
+}
+
+.time-of-day-selection__item{
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+}
+
+.partner-selection{
+  margin-top: 10px;
+  width: 100%;
+}
+
+.create-Aims-button{
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+</style>

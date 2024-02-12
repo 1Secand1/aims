@@ -30,7 +30,7 @@
         class="button"
         @click="deleteCardFromSection(id)"
       >
-        Удолить
+        Удалить
       </button>
     </div>
     </li>
