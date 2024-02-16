@@ -22,6 +22,7 @@
         <input
           class="checkbox-round"
           :id="id"
+          @click="confirm(id)"
           type="checkbox"
         />
       </label>
@@ -38,12 +39,18 @@
 </template>
 
 <script setup>
- defineProps(['title', 'cards'])
- const emit = defineEmits(['cardRemove'])
+import { defineProps, defineEmits } from 'vue'
 
- function deleteCardFromSection(id) {
-  emit("cardRemove",id)
- }
+const props = defineProps(['title', 'cards'])
+const emits = defineEmits(['confirm', 'cardRemove'])
+
+function deleteCardFromSection(id) {
+  emits("cardRemove", id)
+}
+
+function confirm(id) {
+  emits("confirm", id)
+}
 </script>
 
 <style scoped>

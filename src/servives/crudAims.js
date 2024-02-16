@@ -3,9 +3,9 @@ import { fetchData } from "./metods.js";
 
 async function getAimsList(weekDay) {
   const weekdayNumber = daysOfTheWeek[weekDay].weekdayNumber;
+  const url = `https://apigenerator.dronahq.com/api/ZMqiX_9j/aims/${weekdayNumber}`;
+  let jsonAimsList = await fetchData(url);
 
-  const url = `https://apigenerator.dronahq.com/api/ji-qgVLr/aims/${weekdayNumber}`;
-  const jsonAimsList = await fetchData(url);
   return jsonAimsList;
 }
 
@@ -21,7 +21,8 @@ async function setDailyAims(weekDay, aimArray = {}) {
     }
   ];
 
-  fetchData("https://apigenerator.dronahq.com/api/ji-qgVLr/aims/7", "PATCH", {
+  const weekdayNumber = daysOfTheWeek[weekDay].weekdayNumber;
+  fetchData(`https://apigenerator.dronahq.com/api/ZMqiX_9j/aims/${weekdayNumber}`, "PATCH", {
     aims: newAims
   });
 }

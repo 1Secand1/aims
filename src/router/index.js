@@ -8,6 +8,16 @@ const routes = [
     component: HomeView,
   },
   {
+    path: "/registration",
+    name: "registration",
+    component: () => import("../views/AuthRegistration.vue"),
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("../views/AuthLogin.vue"),
+  },
+  {
     path: "/createaim",
     name: "createaim",
     component: () => import("../views/CreateAims.vue"),
@@ -18,14 +28,9 @@ const routes = [
     component: () => import("../views/ListAims.vue"),
   },
   {
-    path: "/registration",
-    name: "registration",
-    component: () => import("../views/AuthRegistration.vue"),
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: () => import("../views/AuthLogin.vue"),
+    path: "/ConfirmExecution",
+    name: "ConfirmExecution",
+    component: () => import("../views/ConfirmExecution.vue"),
   },
 ];
 

@@ -138,8 +138,8 @@ function setTargetDates(weekDays) {
 }
 
 function createAim() {
-
   const{targetDates, ...dataAims} = newAims
+  
   targetDates.forEach(weekDay => {
   setDailyAims(weekDay,dataAims)
   });

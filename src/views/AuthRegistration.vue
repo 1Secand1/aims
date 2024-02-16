@@ -11,7 +11,7 @@
         type="text"
         placeholder="Пароль" />
       <button @click="userRegistration(regData)">
-        зарегистрироваться
+        Зарегистрироваться
       </button>
 
       <small>

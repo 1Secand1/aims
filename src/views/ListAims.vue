@@ -9,34 +9,41 @@
        <time-section 
         title="В течении дня"
         :cards="aims.duringTheDay" 
-        @cardRemove="removeAims(aims.duringTheDay,$event)"
+        @confirm="goToConfirmExecution"
+        @cardRemove="removeAims(aims.duringTheDay,$event,'duringTheDay')"
       />
 
       <time-section 
         title="Утром"
         :cards="aims.morning" 
-        @cardRemove="removeAims(aims.morning,$event)"
+        @confirm="goToConfirmExecution"
+        @cardRemove="removeAims(aims.morning,$event,'morning')"
       />
 
       <time-section
         title="Днём"
         :cards="aims.afternoon"
-        @cardRemove="removeAims(aims.afternoon,$event)"
+        @confirm="goToConfirmExecution"
+        @cardRemove="removeAims(aims.afternoon,$event,'afternoon')"
       />
 
       <time-section
         title="Вечером"
         :cards="aims.evening"
-        @cardRemove="removeAims(aims.evening,$event)"
+        @confirm="goToConfirmExecution"
+        @cardRemove="removeAims(aims.evening,$event,'evening')"
       />
     </ul>
 </template>
 
 <script setup>
 import { onMounted, reactive } from 'vue'
+import { fetchData } from "../servives/metods";
+
 import timeSection from '../components/ListAimsTimeSection.vue'
 import weekdaySelection from '@/components/WeekdaySelection.vue'
 import { getAimsList } from "../servives/crudAims.js"
+import router from '@/router';
 
 
 const aims = reactive({
@@ -59,14 +66,47 @@ async function displayTheDaysAims(weekDay) {
   })
 }
 
+function goToConfirmExecution(id) {
+  router.push({ 
+    path: '/ConfirmExecution', 
+    query: { 
+      id: id,
+    }
+  })
+}
+
 function removeAims(array, itemID) {
-  for (const iterator in aims) {
-    if (aims[iterator] == array) {
-      aims[iterator] = aims[iterator].filter((aim) => {
+  //TODO заменить на мадальное окно
+  const toRemove = confirm("Вы точно хотите удолить эту привычку ?");
+
+  if (!toRemove) return
+
+  console.log(array);
+  for (const weekDay in aims) {
+
+    if (aims[weekDay] == array) {
+      aims[weekDay] = aims[weekDay].filter((aim) => {
         return aim.id != itemID
       })
     }
   }
+
+// TODO убрать после перехода на бекенд
+const newAimsList = [
+    ...aims.morning,
+    ...aims.afternoon,
+    ...aims.evening,
+    ...aims.duringTheDay
+  ]
+
+  // переопределение id
+  newAimsList.forEach((aim,id)=>{
+    aim.id = ++id
+  })
+
+  fetchData(`https://apigenerator.dronahq.com/api/ZMqiX_9j/aims/1`, "PUT", {
+    aims: newAimsList
+  });
 }
 
 onMounted(() => {

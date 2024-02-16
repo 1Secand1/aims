@@ -24,7 +24,6 @@ const emit = defineEmits(['getDay'])
 const props = defineProps({
   type: {
     validator(value) {
-      // TODO вынисти radio в const
       return ['radio', 'select'].includes(value)
     }
   },
@@ -48,7 +47,6 @@ function selectDayOfTheWeek({ target }) {
 
   if (tagName !== 'LI') return
 
-  // TODO вынисти radio в const
   if (props.type === 'radio') {
     radio(dataset.weekday)
   } else {
