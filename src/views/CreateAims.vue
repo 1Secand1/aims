@@ -3,7 +3,7 @@
   <form 
     @submit.prevent=""
     action="">
-    <h2>Сооздать цель</h2>
+    <h2>Создать цель</h2>
 
     <div class="input-box">
       <input 
@@ -29,7 +29,9 @@
       <li class="time-of-day-selection__item">
         <label 
           class="time-of-day-selection__item-title"
-          for="duringTheDay">В любое время
+          for="duringTheDay"
+        >
+          В любое время
         </label>
         <input
           v-model="newAims.timeOfDay"

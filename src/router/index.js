@@ -31,6 +31,11 @@ const routes = [
     path: "/ConfirmExecution",
     name: "ConfirmExecution",
     component: () => import("../views/ConfirmExecution.vue"),
+    beforeEnter: (to, from, next) => {
+      from.name === "listAims"
+        ? next()
+        : router.push("/listAims");
+    }
   },
 ];
 
@@ -45,11 +50,9 @@ router.beforeEach((to) => {
   const thisUserAuthorized = !!localStorage.getItem("jwtToken");
   const thisRoutePublic = publiclyRoutes.includes(to.name);
 
-  if (thisUserAuthorized || thisRoutePublic) {
-    return true;
-  } else {
-    router.push("login");
-  }
+  thisUserAuthorized || thisRoutePublic
+    ? true
+    : router.push("login");
 });
 
 export default router;
