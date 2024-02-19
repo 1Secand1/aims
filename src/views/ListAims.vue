@@ -38,11 +38,11 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue'
-import { requestRemoveAim } from "../servives/crudAims.js";
+import { requestRemoveAim } from "../servives/aims.js";
 
 import timeSection from '../components/ListAimsTimeSection.vue'
 import weekdaySelection from '@/components/WeekdaySelection.vue'
-import { getAimsList } from "../servives/crudAims.js"
+import { getAimsList } from "../servives/aims.js"
 import router from '@/router';
 
 

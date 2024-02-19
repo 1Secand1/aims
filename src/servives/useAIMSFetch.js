@@ -1,4 +1,4 @@
-async function fetchData(url, method = 'GET', body = '') {
+async function useAIMSFetch(url, method = 'GET', body = '') {
   try {
     if (!url) {
       throw new Error('URL is undefined');
@@ -32,4 +32,4 @@ async function fetchData(url, method = 'GET', body = '') {
   }
 }
 
-export { fetchData };
+export { useAIMSFetch };

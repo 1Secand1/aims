@@ -120,7 +120,7 @@
 import { reactive, ref } from 'vue'
 import weekdaySelection from '@/components/WeekdaySelection.vue'
 import { daysOfTheWeek } from '../consts/weekDay.js'
-import { setDailyAims } from "../servives/crudAims.js";
+import { setDailyAims } from "../servives/aims.js";
 
 const defaultDays = Object.keys(daysOfTheWeek)
 const newAims = reactive({

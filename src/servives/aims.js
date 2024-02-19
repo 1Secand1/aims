@@ -1,5 +1,5 @@
 import { daysOfTheWeek } from '../consts/weekDay.js';
-import { fetchData } from './metods.js';
+import { useAIMSFetch } from './useAIMSFetch.js';
 const env = import.meta.env;
 
 function getWeekdayApiUrl(weekDay) {
@@ -11,21 +11,21 @@ function getWeekdayApiUrl(weekDay) {
 async function getAimsList(weekDay) {
   const weekdayApiUrl = getWeekdayApiUrl(weekDay);
 
-  let jsonAimsList = await fetchData(weekdayApiUrl);
+  let jsonAimsList = await useAIMSFetch(weekdayApiUrl);
 
   return jsonAimsList;
 }
 
 async function requestRemoveAim(body) {
   const weekdayApiUrl = getWeekdayApiUrl("monday");
-  await fetchData(weekdayApiUrl, "PUT", body);
+  await useAIMSFetch(weekdayApiUrl, "PUT", body);
 }
 
 async function setDailyAims(weekDay, aimArray = {}) {
   const currentDay = await getAimsList(weekDay);
   const currentAims = currentDay.aims;
 
-  let newAims = [
+  const newAims = [
     ...currentAims,
     {
       id: currentAims.length + 1,
@@ -35,7 +35,7 @@ async function setDailyAims(weekDay, aimArray = {}) {
 
   const weekdayApiUrl = getWeekdayApiUrl(weekDay);
 
-  await fetchData(weekdayApiUrl, 'PATCH', {
+  await useAIMSFetch(weekdayApiUrl, 'PATCH', {
     aims: newAims
   });
 }

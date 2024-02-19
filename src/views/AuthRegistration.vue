@@ -29,7 +29,7 @@
 
 <script setup>
 import { reactive } from 'vue'
-import { userCreation } from"../servives/autofitration.js"
+import { userCreation } from"../servives/authentication.js"
 
 
 const regData = reactive({
