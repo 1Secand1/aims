@@ -10,35 +10,35 @@
         title="В течении дня"
         :cards="aims.duringTheDay" 
         @confirm="goToConfirmExecution"
-        @cardRemove="removeAims(aims.duringTheDay,$event,'duringTheDay')"
+        @cardRemove="removeAim(aims.duringTheDay,$event,'duringTheDay')"
       />
 
       <time-section 
         title="Утром"
         :cards="aims.morning" 
         @confirm="goToConfirmExecution"
-        @cardRemove="removeAims(aims.morning,$event,'morning')"
+        @cardRemove="removeAim(aims.morning,$event,'morning')"
       />
 
       <time-section
         title="Днём"
         :cards="aims.afternoon"
         @confirm="goToConfirmExecution"
-        @cardRemove="removeAims(aims.afternoon,$event,'afternoon')"
+        @cardRemove="removeAim(aims.afternoon,$event,'afternoon')"
       />
 
       <time-section
         title="Вечером"
         :cards="aims.evening"
         @confirm="goToConfirmExecution"
-        @cardRemove="removeAims(aims.evening,$event,'evening')"
+        @cardRemove="removeAim(aims.evening,$event,'evening')"
       />
     </ul>
 </template>
 
 <script setup>
 import { onMounted, reactive } from 'vue'
-import { fetchData } from "../servives/metods";
+import { requestRemoveAim } from "../servives/crudAims.js";
 
 import timeSection from '../components/ListAimsTimeSection.vue'
 import weekdaySelection from '@/components/WeekdaySelection.vue'
@@ -75,7 +75,7 @@ function goToConfirmExecution(id) {
   })
 }
 
-function removeAims(array, itemID) {
+ async function removeAim(array, itemID) {
   //TODO заменить на мадальное окно
   const toRemove = confirm("Вы точно хотите удолить эту привычку ?");
 
@@ -104,7 +104,7 @@ const newAimsList = [
     aim.id = ++id
   })
 
-  fetchData(`https://apigenerator.dronahq.com/api/ZMqiX_9j/aims/1`, "PUT", {
+  await requestRemoveAim({
     aims: newAimsList
   });
 }

@@ -1,12 +1,24 @@
-import { daysOfTheWeek } from "../consts/weekDay.js";
-import { fetchData } from "./metods.js";
+import { daysOfTheWeek } from '../consts/weekDay.js';
+import { fetchData } from './metods.js';
+const env = import.meta.env;
+
+function getWeekdayApiUrl(weekDay) {
+  const { weekdayNumber } = daysOfTheWeek[weekDay];
+  const baseUrlApi = env.VITE_URL_API;
+  return baseUrlApi + weekdayNumber;
+}
 
 async function getAimsList(weekDay) {
-  const weekdayNumber = daysOfTheWeek[weekDay].weekdayNumber;
-  const url = `https://apigenerator.dronahq.com/api/ZMqiX_9j/aims/${weekdayNumber}`;
-  let jsonAimsList = await fetchData(url);
+  const weekdayApiUrl = getWeekdayApiUrl(weekDay);
+
+  let jsonAimsList = await fetchData(weekdayApiUrl);
 
   return jsonAimsList;
+}
+
+async function requestRemoveAim(body) {
+  const weekdayApiUrl = getWeekdayApiUrl("monday");
+  await fetchData(weekdayApiUrl, "PUT", body);
 }
 
 async function setDailyAims(weekDay, aimArray = {}) {
@@ -21,10 +33,11 @@ async function setDailyAims(weekDay, aimArray = {}) {
     }
   ];
 
-  const weekdayNumber = daysOfTheWeek[weekDay].weekdayNumber;
-  fetchData(`https://apigenerator.dronahq.com/api/ZMqiX_9j/aims/${weekdayNumber}`, "PATCH", {
+  const weekdayApiUrl = getWeekdayApiUrl(weekDay);
+
+  await fetchData(weekdayApiUrl, 'PATCH', {
     aims: newAims
   });
 }
 
-export { getAimsList, setDailyAims };
+export { getAimsList, setDailyAims, requestRemoveAim };
