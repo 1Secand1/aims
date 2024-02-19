@@ -14,7 +14,7 @@ async function useAIMSFetch(url, method = 'GET', body = '') {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: method ?? null
+      body: !method ? JSON.stringify(body) : null
     };
 
     const response = await fetch(url, fetchOptions);
