@@ -56,6 +56,8 @@ const aims = reactive({
 
 async function displayTheDaysAims(weekDay) {
   const jsonAimsList = await getAimsList(weekDay);
+  
+  if (!("aims" in jsonAimsList)) return
 
   for (const key in aims) {
     aims[key] = []
@@ -75,10 +77,10 @@ function goToConfirmExecution(id) {
   })
 }
 
- async function removeAim(array, itemID) {
+async function removeAim(array, itemID) {
+
   //TODO заменить на мадальное окно
   const toRemove = confirm("Вы точно хотите удолить эту привычку ?");
-
   if (!toRemove) return
 
   console.log(array);
@@ -90,6 +92,7 @@ function goToConfirmExecution(id) {
       })
     }
   }
+
 
 // TODO убрать после перехода на бекенд
 const newAimsList = [
