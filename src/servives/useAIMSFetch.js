@@ -4,6 +4,8 @@ async function useAIMSFetch(url, method = 'GET', body = '') {
       throw new Error('URL is undefined');
     }
 
+
+
     const authorizedMethods = ["GET", "POST", "PUT", "PATCH", "DELETE"];
     if (!authorizedMethods.includes(method)) {
       throw new Error('Unauthorized method');
@@ -14,8 +16,11 @@ async function useAIMSFetch(url, method = 'GET', body = '') {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: !method ? JSON.stringify(body) : null
+      body: body ? JSON.stringify(body) : null
     };
+
+    console.log(body);
+    console.log(fetchOptions);
 
     const response = await fetch(url, fetchOptions);
 
