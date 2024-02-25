@@ -1,127 +1,137 @@
-<template >
-    <weekday-selection 
-      type="radio"
-      selected="monday"
-      @get-day="displayTheDaysAims" 
+<template>
+  <weekday-selection
+    type="radio"
+    selected="monday"
+    @get-day="displayTheDaysAims"
+  />
+
+  <ul 
+    class="time-section-list"
+  >
+    <time-section
+      title="В течении дня"
+      class="test"
+      :cards="timeOfDayList.duringTheDay"
+      @confirm="goToConfirmExecution"
+      @cardRemove="
+        removeAim(timeOfDayList.duringTheDay, $event, 'duringTheDay')
+      "
     />
 
-    <ul class="time-section-list">
-       <time-section 
-        title="В течении дня"
-        :cards="aims.duringTheDay" 
-        @confirm="goToConfirmExecution"
-        @cardRemove="removeAim(aims.duringTheDay,$event,'duringTheDay')"
-      />
+    <time-section
+      title="Утром"
+      class="test"
+      :cards="timeOfDayList.morning"
+      @confirm="goToConfirmExecution"
+      @cardRemove="removeAim(timeOfDayList.morning, $event, 'morning')"
+    />
 
-      <time-section 
-        title="Утром"
-        :cards="aims.morning" 
-        @confirm="goToConfirmExecution"
-        @cardRemove="removeAim(aims.morning,$event,'morning')"
-      />
+    <time-section
+      title="Днём"
+      class="test"
+      :cards="timeOfDayList.afternoon"
+      @confirm="goToConfirmExecution"
+      @cardRemove="removeAim(timeOfDayList.afternoon, $event, 'afternoon')"
+    />
 
-      <time-section
-        title="Днём"
-        :cards="aims.afternoon"
-        @confirm="goToConfirmExecution"
-        @cardRemove="removeAim(aims.afternoon,$event,'afternoon')"
-      />
-
-      <time-section
-        title="Вечером"
-        :cards="aims.evening"
-        @confirm="goToConfirmExecution"
-        @cardRemove="removeAim(aims.evening,$event,'evening')"
-      />
-    </ul>
+    <time-section
+      title="Вечером"
+      class="test"
+      :cards="timeOfDayList.evening"
+      @confirm="goToConfirmExecution"
+      @cardRemove="removeAim(timeOfDayList.evening, $event, 'evening')"
+    />
+  </ul>
 </template>
 
 <script setup>
 import { onMounted, reactive } from 'vue'
-import { requestRemoveAim } from "../servives/aims.js";
+import { requestRemoveAim } from '../servives/aims.js'
 
 import timeSection from '../components/ListAimsTimeSection.vue'
 import weekdaySelection from '@/components/WeekdaySelection.vue'
-import { getAimsList } from "../servives/aims.js"
-import router from '@/router';
+import { getAimsList } from '../servives/aims.js'
+import router from '@/router'
 
-
-const aims = reactive({
+const timeOfDayList = reactive({
+  duringTheDay: [],
   morning: [],
   afternoon: [],
   evening: [],
-  duringTheDay: []
 })
 
-
 async function displayTheDaysAims(weekDay) {
-  const jsonAimsList = await getAimsList(weekDay);
-  
-  if (!("aims" in jsonAimsList)) return
+  const { aims } = await getAimsList(weekDay)
 
-  for (const key in aims) {
-    aims[key] = []
+  const objectKeyArray = Object.keys(timeOfDayList)
+  const reverseSequenceObjectKeys = objectKeyArray.toReversed();
+
+  for (const key of reverseSequenceObjectKeys) {
+    while (timeOfDayList[key].length > 0) {
+      timeOfDayList[key].pop()
+      await new Promise((resolve) => setTimeout(resolve, 100))
+    }
   }
 
-  jsonAimsList.aims.forEach((aim) => {
-    aims[aim.timeOfDay].push(aim)
-  })
+  for (const aim of aims) {
+    await new Promise((resolve) => setTimeout(resolve, 300))
+    timeOfDayList[aim.timeOfDay].push(aim)
+  }
 }
 
 function goToConfirmExecution(id) {
-  router.push({ 
-    path: '/ConfirmExecution', 
-    query: { 
-      id: id,
+  router.push({
+    path: '/ConfirmExecution',
+    query: {
+      id: id
     }
   })
 }
 
 async function removeAim(array, itemID) {
-
   //TODO заменить на мадальное окно
-  const toRemove = confirm("Вы точно хотите удолить эту привычку ?");
+  const toRemove = confirm('Вы точно хотите удолить эту привычку ?')
   if (!toRemove) return
 
-  console.log(array);
-  for (const weekDay in aims) {
-
-    if (aims[weekDay] == array) {
-      aims[weekDay] = aims[weekDay].filter((aim) => {
+  for (const weekDay in timeOfDayList) {
+    if (timeOfDayList[weekDay] == array) {
+      timeOfDayList[weekDay] = timeOfDayList[weekDay].filter((aim) => {
         return aim.id != itemID
       })
     }
   }
 
-
-// TODO убрать после перехода на бекенд
-const newAimsList = [
-    ...aims.morning,
-    ...aims.afternoon,
-    ...aims.evening,
-    ...aims.duringTheDay
+  // TODO убрать после перехода на бекенд
+  const newAimsList = [
+    ...timeOfDayList.morning,
+    ...timeOfDayList.afternoon,
+    ...timeOfDayList.evening,
+    ...timeOfDayList.duringTheDay
   ]
 
   // переопределение id
-  newAimsList.forEach((aim,id)=>{
+  newAimsList.forEach((aim, id) => {
     aim.id = ++id
   })
 
   await requestRemoveAim({
     aims: newAimsList
-  });
+  })
 }
 
-onMounted(() => {
-})
+onMounted(() => {})
 </script>
 
 <style scoped>
-
-.time-section-list{
+.time-section-list {
   display: grid;
-  
+
   gap: 20px;
   margin-top: 20px;
 }
+
+.test{
+  animation: fadeIn 2s ease-in-out; 
+}
+
 </style>

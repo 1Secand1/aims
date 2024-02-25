@@ -35,5 +35,6 @@ import { RouterLink, RouterView} from 'vue-router'
   display: grid;
   max-width:900px;
   margin-inline: auto;
+  padding-inline: 16px;
 }
 </style>

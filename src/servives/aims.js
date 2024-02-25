@@ -1,4 +1,4 @@
-import { daysOfTheWeek } from '../consts/weekDay.js';
+import { daysOfTheWeek } from '../constants/weekDay.js';
 import { useAIMSFetch } from './useAIMSFetch.js';
 const env = import.meta.env;
 
@@ -25,9 +25,6 @@ async function setDailyAims(weekDay, aimArray = {}) {
   const currentDay = await getAimsList(weekDay);
   const currentAims = currentDay.aims;
 
-  console.log(currentAims);
-  console.log(aimArray);
-
   const newAims = [
     ...currentAims,
     {
@@ -35,8 +32,6 @@ async function setDailyAims(weekDay, aimArray = {}) {
       ...aimArray
     }
   ];
-
-  console.log(newAims);
 
   const weekdayApiUrl = getWeekdayApiUrl(weekDay);
 

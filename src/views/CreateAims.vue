@@ -2,27 +2,39 @@
 <template>
   <form 
     @submit.prevent=""
-    action="">
+    action=""
+    class="form"
+  >
     <h2>Создать цель</h2>
 
     <div class="input-box">
       <input 
+        class="input-box__input-element"
         v-model="newAims.title"
         type="text"
         placeholder="Название"
       />
 
       <input 
+        class="input-box__input-element"
         v-model="newAims.description"
         type="text"
         placeholder="Описание" 
       />
     </div>
 
-    <weekday-selection
+    <pick-value-from-the-list
       type="select"
-      :selected="defaultDays"
-      @get-Day="setTargetDates"
+      :elements="weekDayFoListSelect"
+      :selected="[]"
+      :get-element="setTargetDates"
+    />
+
+    <pick-value-from-the-list
+      type="select"
+      :elements="timeOfDayFoListSelect"
+      :selected="[]"
+      :get-element="setTimeOfDay"
     />
 
     <ul class="time-of-day-selection-list">
@@ -31,7 +43,7 @@
           class="time-of-day-selection__item-title"
           for="duringTheDay"
         >
-          В любое время
+          
         </label>
         <input
           v-model="newAims.timeOfDay"
@@ -118,11 +130,10 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
-import weekdaySelection from '@/components/WeekdaySelection.vue'
-import { daysOfTheWeek } from '../consts/weekDay.js'
+import pickValueFromTheList from '../components/pickValueFromTheList.vue'
+import { daysOfTheWeek } from '../constants/weekDay.js'
 import { setDailyAims } from "../servives/aims.js";
 
-const defaultDays = Object.keys(daysOfTheWeek)
 const newAims = reactive({
   title: '',
   description: '',
@@ -130,10 +141,34 @@ const newAims = reactive({
   status: false,
   targetDates: ref([])
 })
+const weekDayFoListSelect = Object.entries(daysOfTheWeek).map((weekDay)=>{
+  return {
+    name: weekDay[0],
+    textValue: weekDay[1].textValue
+  }
+})
+const timeOfDayFoListSelect = [
+  {
+    name: "duringTheDay",
+    textValue: "В любое время"
+  },
+  {
+    name: "morning",
+    textValue: "Утром"
+  },
+  {
+    name: "afternoon",
+    textValue: "Днём"
+  },
+  {
+    name: "evening",
+    textValue: "Вечером"
+  },
+]
 
-function scheduleTaskOnDays(weekDay) {
-
-}
+ function setTimeOfDay(timeOfDay) {
+  newAims.timeOfDay = timeOfDay
+ }
 
 function setTargetDates(weekDays) {
   newAims.targetDates = weekDays
@@ -163,10 +198,20 @@ button:hover{
   opacity: 0.8;
 }
 
+.form{
+  width: 100%;
+}
+
 .input-box{
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 10px;
+}
+
+.input-box__input-element{
+  display: flex;
+  flex: 1 auto;
 }
 
 .time-of-day-selection-list{
