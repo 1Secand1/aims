@@ -63,8 +63,8 @@ const timeOfDayList = reactive({
 async function displayTheDaysAims(weekDay) {
   const { aims } = await getAimsList(weekDay)
 
-  const objectKeyArray = Object.keys(timeOfDayList)
-  const reverseSequenceObjectKeys = objectKeyArray.toReversed();
+  const timeOfDayNameList = Object.keys(timeOfDayList)
+  const reverseSequenceObjectKeys = timeOfDayNameList.toReversed();
 
   for (const key of reverseSequenceObjectKeys) {
     while (timeOfDayList[key].length > 0) {
