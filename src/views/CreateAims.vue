@@ -31,75 +31,11 @@
     />
 
     <pick-value-from-the-list
-      type="select"
+      type="radio"
       :elements="timeOfDayFoListSelect"
       :selected="[]"
       :get-element="setTimeOfDay"
     />
-
-    <ul class="time-of-day-selection-list">
-      <li class="time-of-day-selection__item">
-        <label 
-          class="time-of-day-selection__item-title"
-          for="duringTheDay"
-        >
-          
-        </label>
-        <input
-          v-model="newAims.timeOfDay"
-          id="duringTheDay"
-          type="radio"
-          name="timeOfDay"
-          value="duringTheDay"
-          checked
-        />
-      </li>
-      <li class="time-of-day-selection__item">
-        <label 
-          class="time-of-day-selection__item-title"
-          for="morning"
-        > 
-          Утром 
-        </label>
-        <input
-          v-model="newAims.timeOfDay"
-          id="morning"
-          type="radio"
-          name="timeOfDay"
-          value="morning"
-        />
-      </li>
-      <li class="time-of-day-selection__item">
-        <label 
-          class="time-of-day-selection__item-title"
-          for="afternoon"
-        > 
-          Днём 
-        </label>
-        <input
-          v-model="newAims.timeOfDay"
-          id="afternoon"
-          type="radio"
-          name="timeOfDay"
-          value="afternoon"
-        />
-      </li>
-      <li class="time-of-day-selection__item">
-        <label 
-          class="time-of-day-selection__item-title"
-          for="evening"
-        > 
-          Вечером 
-        </label>
-        <input
-          v-model="newAims.timeOfDay"
-          id="evening"
-          type="radio"
-          name="timeOfDay"
-          value="evening"
-        />
-      </li>
-    </ul>
 
     <select 
       name="choice"
@@ -170,16 +106,18 @@ const timeOfDayFoListSelect = [
   newAims.timeOfDay = timeOfDay
  }
 
-function setTargetDates(weekDays) {
-  newAims.targetDates = weekDays
-}
+ function setTargetDates(weekDays) {
+   newAims.targetDates.push(weekDays)
+ }
 
 function createAim() {
   const{targetDates, ...dataAims} = newAims
   
-  targetDates.forEach(weekDay => {
-  setDailyAims(weekDay,dataAims)
-  });
+  console.log(newAims.targetDates);
+
+  // targetDates.forEach(weekDay => {
+  //   setDailyAims(weekDay,dataAims)
+  // });
 }
 </script>
 
