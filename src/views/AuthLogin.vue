@@ -1,6 +1,9 @@
 <template>
   <div class="wrapper">
-    <form class="form">
+    <form 
+      class="form"
+      @submit.prevent=""
+    >
       <h2>Вход в приложение</h2>
       <input 
         v-model="logData.login"
