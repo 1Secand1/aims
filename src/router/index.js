@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import ListAims from "../views/ListAims.vue";
 
 const routes = [
   {
-    path: "/",
-    name: "home",
-    component: HomeView,
+    path: "/listAims",
+    alias: "/",
+    name: "listAims",
+    component: ListAims,
   },
   {
     path: "/registration",
@@ -21,11 +22,6 @@ const routes = [
     path: "/createaim",
     name: "createaim",
     component: () => import("../views/CreateAims.vue"),
-  },
-  {
-    path: "/listAims",
-    name: "listAims",
-    component: () => import("../views/ListAims.vue"),
   },
   {
     path: "/ConfirmExecution",

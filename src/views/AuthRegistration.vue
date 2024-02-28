@@ -18,7 +18,7 @@
         Нет акаунта -
         <RouterLink 
           class="router-link" 
-          to="/registration"
+          to="/login"
         >
           ввойти
         </RouterLink>

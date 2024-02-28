@@ -8,9 +8,7 @@
     :aria-labelledby="iconName"
     role="presentation"
   >
-    <g>
       <component :is="dynamicComponent" />
-    </g>
   </svg>
 </template>
 
