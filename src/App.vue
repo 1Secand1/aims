@@ -5,7 +5,7 @@
 
 <nav class="navigation-menu">
   <ul class="navigation-menu__list wrapper">
-    <li>
+     <li class="navigation-menu__item">
       <RouterLink 
         to="/listAims"
         class="navigation-menu__icon-link"
@@ -15,11 +15,13 @@
           width="25"
           height="25" 
         />
-        <p>Home</p>
+        <h5 class="navigation-menu__icon-link-title">
+          Home
+        </h5>
       </RouterLink>
     </li>
 
-    <li>
+     <li class="navigation-menu__item">
       <RouterLink 
         to="/listAims"
         class="navigation-menu__icon-link"
@@ -30,11 +32,13 @@
           width="25"
           height="25" 
         />
-        <p>undefined</p>
+        <h5 class="navigation-menu__icon-link-title">
+          undefined
+        </h5>
       </RouterLink>
     </li>
 
-    <li>
+     <li class="navigation-menu__item">
       <RouterLink 
         to="/createAim"
         class="navigation-menu__icon-link"
@@ -49,7 +53,7 @@
       </RouterLink>
     </li>
 
-    <li>
+    <li class="navigation-menu__item">
       <RouterLink 
         to="/listAims"
         class="navigation-menu__icon-link"
@@ -60,11 +64,13 @@
           width="25"
           height="25" 
         />
-        <p>Напарники</p>
+        <h5 class="navigation-menu__icon-link-title">
+          Напарники
+        </h5>
       </RouterLink>
     </li>
     
-    <li>
+    <li class="navigation-menu__item">
       <RouterLink 
         to="/listAims"
         class="navigation-menu__icon-link"
@@ -75,7 +81,9 @@
           width="33"
           height="20" 
         />
-        <p>Друзья</p>
+        <h5 class="navigation-menu__icon-link-title">
+          Друзья
+        </h5>
       </RouterLink>
     </li>
   </ul>
@@ -114,6 +122,10 @@ import SvgIconLoader from './components/icons/SvgIconLoader.vue'
 
   background: #253334;
   color: white;
+}
+
+.navigation-menu__item{
+  display: grid;
 }
 
 .navigation-menu__icon-link {
