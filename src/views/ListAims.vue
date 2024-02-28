@@ -5,9 +5,7 @@
     @get-day="displayTheDaysAims"
   />
 
-  <ul 
-    class="time-section-list"
-  >
+  <ul class="time-section-list">
     <time-section
       title="В течении дня"
       class="test"
@@ -57,14 +55,14 @@ const timeOfDayList = reactive({
   duringTheDay: [],
   morning: [],
   afternoon: [],
-  evening: [],
+  evening: []
 })
 
 async function displayTheDaysAims(weekDay) {
   const { aims } = await getAimsList(weekDay)
 
   const timeOfDayNameList = Object.keys(timeOfDayList)
-  const reverseSequenceObjectKeys = timeOfDayNameList.toReversed();
+  const reverseSequenceObjectKeys = timeOfDayNameList.toReversed()
 
   for (const key of reverseSequenceObjectKeys) {
     while (timeOfDayList[key].length > 0) {
@@ -130,8 +128,7 @@ onMounted(() => {})
   margin-top: 20px;
 }
 
-.test{
-  animation: fadeIn 2s ease-in-out; 
+.test {
+  animation: fadeIn 2s ease-in-out;
 }
-
 </style>
